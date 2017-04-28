@@ -22,9 +22,46 @@ This will install the latest version of this plugin and also it will save the pl
 
 `npm install ionic2-datepicker#0.1.0 --save`
 
-2) Specify the path of  `ionic2-datepicker.bundle.js` in your `index.html` file.
+2) Add IonicDatepicker to your app modules
+
+````ts
+import { IonicDatepicker } from 'ionic2-datepicker'
+````
+
+3) Add a button to launch the calendar in your view (for example, `launch-calendar.html`)
 
 ````html
-<!-- path to ionic -->
-<script src="node_modules/ionic2-datepicker/dist/ionic2-datepicker.min.js"></script>
+<button (click)="launchDatepicker($event)">Show Calendar</button>
 ````
+
+4) Add the function to launch your datepicker from the associated typescript file (for example, `launch-calendar.ts`)
+
+````ts
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicDatepicker } from 'ionic2-datepicker';
+
+@Component({
+  templateUrl: 'launch-calendar.html'
+)}
+
+export class LaunchCalendar {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController){
+
+  }
+
+  launchDatepicker(ev){
+    let dp = this.modalCtrl.create(this.datepicker, {
+      callback: function(val) {
+        console.log('Return value from the datepicker popup is: ' + val, new Date(val));
+      }
+    });
+    dp.present();
+  }
+
+}
+
+````
+
+
+
