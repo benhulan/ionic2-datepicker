@@ -185,10 +185,10 @@ export class IonicDatepicker {
 
   loadDaysList(ipDate) {
     this.daysList = [];
-    let firstDay = new Date(ipDate.getFullYear(), ipDate.getMonth(), 1).getDate();
+    let firstDay = new Date(ipDate.getFullYear(), ipDate.getMonth() + 1, 1).getDate();
     let lastDay = new Date(ipDate.getFullYear(), ipDate.getMonth() + 1, 0).getDate();
 
-    for (let i = firstDay; i <= lastDay; i++) {
+    for (let i = firstDay; i < lastDay; i++) {
       let tempDate = new Date(ipDate.getFullYear(), ipDate.getMonth(), i);
       if (i === firstDay) {
         this.prevDisabled = tempDate.getTime() < this.config.fromDate.getTime();
