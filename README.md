@@ -22,10 +22,29 @@ This will install the latest version of this plugin and also it will save the pl
 
 `npm install ionic2-datepicker#0.1.0 --save`
 
-2) Add IonicDatepicker to your app modules
+2) Import IonicDatepicker and include in your module declarations and entryComponents:
 
 ````ts
-import { IonicDatepicker } from 'ionic2-datepicker'
+import { IonicDatepicker } from 'ionic2-datepicker';
+
+...
+
+@NgModule({
+
+declarations: [
+    IonicDatepicker,
+    LaunchCalendarPage
+  ],
+  
+  ...
+  
+  entryComponents: [
+    IonicDatepicker,
+    LaunchCalendarPage
+  ],
+
+  ...
+
 ````
 
 3) Add a button to launch the calendar in your view (for example, `launch-calendar.html`)
@@ -63,5 +82,4 @@ export class LaunchCalendar {
 
 ````
 
-
-
+5) Adjust styles and settings as needed.
