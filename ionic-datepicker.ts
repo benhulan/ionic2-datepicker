@@ -244,7 +244,7 @@ export class IonicDatepicker {
 
   nextMonth(dateObj) {
     let date = new Date(dateObj.epoch);
-    date.setDate(date.getDate() + 1);
+    date.setDate(date.getDate() + dateObj.date);
     this.selectedMonth = this.config.monthsList[date.getMonth()];
     this.selectedYear = date.getFullYear();
     this.loadDaysList(new Date(date));
