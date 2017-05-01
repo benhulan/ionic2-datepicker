@@ -1,8 +1,10 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-title>
-			<!-- <span [innerHTML]="selectedDate"></span> -->
-			{{ selectedDate | date: config.dateFormat }}
+			<!-- ADDS `DAY MMM DD YYYY HH:mm:mm GMT-0500 (CST)` relative to local time zone
+			<span [innerHTML]="selectedDate"></span>
+			-->
+			Selected Date: {{ selectedDate | date: config.dateFormat }}
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
@@ -15,9 +17,12 @@
 					<ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
 				</ion-col>
 				<ion-col width-80>
-					<!--<span [innerHTML]="months[daysList[daysList.length - 1].month]"></span>
-          <span> - </span>
-          <span [innerHTML]="daysList[daysList.length - 1].year"></span>-->
+					
+					<!-- ADDS `MMM - YYYY` -->
+					<span [innerHTML]="this.config.monthsList[daysList[daysList.length - 1].month]"></span>
+					<span> - </span>
+					<span [innerHTML]="daysList[daysList.length - 1].year"></span>
+									
 					<ion-row class="center">
 						<ion-col width-50>
 							<ion-item>
