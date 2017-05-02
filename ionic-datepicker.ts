@@ -14,6 +14,7 @@ export class Datepicker {
   cols;
   firstDay;
   selectedDate;
+  tempDate;
   selectedMonth;
   selectedYear;
   today;
@@ -23,6 +24,7 @@ export class Datepicker {
 
   constructor(public viewCtrl: ViewController, public params: NavParams) {
     this.selectedDate = new Date();
+    this.tempDate = new Date();
     let weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     this.years = this.getYearsList();
@@ -103,16 +105,16 @@ export class Datepicker {
 
   monthSelected(event, selectedMonth) {
     this.selectedMonth = selectedMonth;
-    this.selectedDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
-    this.selectedDate.setYear(this.selectedYear);
-    this.loadDaysList(new Date(this.selectedDate));
+    this.tempDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
+    this.tempDate.setYear(this.selectedYear);
+    this.loadDaysList(new Date(this.tempDate));
   }
 
   yearSelected(event, selectedYear) {
     this.selectedYear = selectedYear;
-    this.selectedDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
-    this.selectedDate.setYear(this.selectedYear);
-    this.loadDaysList(new Date(this.selectedDate));
+    this.tempDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
+    this.tempDate.setYear(this.selectedYear);
+    this.loadDaysList(new Date(this.tempDate));
   }
 
   dateClicked(dateObj) {
