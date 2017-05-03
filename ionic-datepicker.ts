@@ -138,7 +138,7 @@ export class Datepicker {
   }
 
   setDate() {
-    console.log(this.selectedDate);
+    // console.log(this.selectedDate);
     this.dismiss();
   }
 
@@ -150,7 +150,7 @@ export class Datepicker {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(this.selectedDate);
   }
 
   ionViewWillLoad() {
