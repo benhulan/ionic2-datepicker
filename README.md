@@ -53,6 +53,15 @@ declarations: [
 <button (click)="launchDatepicker($event)">Show Calendar</button>
 ````
 
+Or, like this:
+
+````html
+      <ion-item no-lines>
+          <ion-label stacked>Date</ion-label>
+          <ion-input (click)="launchDatepicker($event)" value="{{ this.selectedDate | date: config.dateFormat }}"></ion-input>
+        </ion-item>
+````
+
 4) Add the function to launch your datepicker from the associated typescript file (for example, `launch-calendar.ts`)
 
 ````ts
@@ -65,21 +74,29 @@ import { IonicDatepicker } from 'ionic2-datepicker';
 
 export class LaunchCalendar {
 
+  datepicker = IonicDatepicker;
+  selectedDate: Date = new Date();
+  config: any = {};
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController){
-
+    this.selectedDate = new Date();
+    this.config.dateFormat = 'MMM dd, yyyy';
   }
 
   launchDatepicker(ev){
-    let dp = this.modalCtrl.create(this.datepicker, {
-      callback: function(val) {
-        console.log('Return value from the datepicker popup is: ' + val, new Date(val));
-      }
-    });
+    let val = ev.target.value;
+    let dp = this.modalCtrl.create(this.datepicker);
+    dp.onDidDismiss((data) => {
+      // console.log(data);
+      this.selectedDate = data;
+    })
     dp.present();
   }
 
 }
 
 ````
+
+(We're actually not using navParams in this example, but you may want it to pass the date config, or something else.)
 
 5) Adjust styles and settings as needed.
