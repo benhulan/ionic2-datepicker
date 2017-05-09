@@ -137,20 +137,24 @@ export class Datepicker {
     this.loadDaysList(new Date(date));
   }
 
-  setDate() {
+  setDate(ev: any) {
     // console.log(this.selectedDate);
-    this.dismiss();
+    this.dismiss(ev);
   }
 
-  setToday() {
+  setToday(ev: any) {
     this.loadDaysList(this.today);
     this.selectedMonth = this.config.monthsList[this.today.getMonth()];
     this.selectedYear = this.today.getFullYear();
     this.selectedDate = this.resetHMSM(new Date());
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss(this.selectedDate);
+  dismiss(ev: any) {
+    if(ev.target.innerHTML == 'Close') {
+      this.viewCtrl.dismiss(this.today);
+    } else {
+      this.viewCtrl.dismiss(this.selectedDate);
+    }
   }
 
   ionViewWillLoad() {
