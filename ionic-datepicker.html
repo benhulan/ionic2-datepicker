@@ -59,13 +59,13 @@
 </ion-content>
 <ion-footer>
 	<ion-toolbar>
-		<ion-buttons start (click)="setDate()">
+		<ion-buttons start (click)="setDate($event)">
 			<button ion-button color="royal" [innerHTML]="config.setLabel"></button>
 		</ion-buttons>
-		<ion-buttons center (click)="setToday()">
+		<ion-buttons center (click)="setToday($event)">
 			<button ion-button color="royal" [innerHTML]="config.todayLabel"></button>
 		</ion-buttons>
-		<ion-buttons end (click)="dismiss()">
+		<ion-buttons end (click)="dismiss($event)">
 			<button ion-button color="royal" [innerHTML]="config.closeLabel"></button>
 		</ion-buttons>
 	</ion-toolbar>
