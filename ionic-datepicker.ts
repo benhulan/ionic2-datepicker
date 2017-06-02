@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
