@@ -1,3 +1,36 @@
+// mixins and color map typically defined in ~app/src/theme/variable.scss
+
+@mixin border-radius($radius) {		
+  -webkit-border-radius: $radius;		
+  -moz-border-radius: $radius;		
+  -ms-border-radius: $radius;		
+  border-radius: $radius;		
+}		
+@mixin text-background($bg) {		
+    $bg-lightness: lightness($bg);		
+    background-color: $bg;		
+    @if $bg-lightness > 70% { color: black; } 		
+    @else { color: white; }		
+}		
+
+$colors: (		
+  primary:    #273e54, // dark blue		
+  secondary:  #435d76, // blue-gray		
+  danger:     #e86139, // orange		
+  light:      #a1a199, // light gray		
+  dark:       #222,		
+  favorite:   #8090a3  // lighter blue-gray		
+);		
+		
+.modal-wrapper {
+  background-color: white;
+  .scroll-content {
+  width: 100%;
+  left: 0%;
+  }
+}
+
+
 datepicker {
   > ion-content {
     left: 0px !important;
@@ -114,19 +147,6 @@ ion-modal {
       min-height: 0px !important;
       padding: 0px;
     }
-
-  // @media #{$tablet} {
-  //   .modal-wrapper {
-  //     background-color: white;
-  //     height: 100%;
-  //     left: 35%;
-  //     max-height: 500px;
-  //     max-width: 600px;
-  //     top: 57px; 
-  //     width: 100%;
-  //   }
-  // }
-
 
     .modal_content {
       > ion-row {

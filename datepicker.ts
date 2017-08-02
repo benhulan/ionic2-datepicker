@@ -2,8 +2,8 @@ import { Component, Directive, Input } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'ionic2-datepicker.html',
-  selector: 'ionic2-datepicker'
+  templateUrl: 'datepicker.html',
+  selector: 'datepicker',
 })
 export class IonicDatepicker {
   @Input('isModal')isModal:boolean=true;
