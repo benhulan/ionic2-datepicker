@@ -46,8 +46,9 @@ declarations: [
   ...
 
 ````
+### OPTION A: Launch Datepicker in Modal window
 
-3) Add a button to launch the calendar in your view (for example, `launch-calendar.html`)
+3A) Add a button to launch the calendar in your view (for example, `launch-calendar.html`)
 
 ````html
 <button (click)="launchDatepicker($event)">Show Calendar</button>
@@ -57,12 +58,22 @@ Or, like this:
 
 ````html
       <ion-item no-lines>
-          <ion-label stacked>Date</ion-label>
-          <ion-input (click)="launchDatepicker($event)" value="{{ this.selectedDate | date: config.dateFormat }}"></ion-input>
-        </ion-item>
+        <ion-label stacked>Date</ion-label>
+        <ion-input (click)="launchDatepicker($event)" value="{{ this.selectedDate | date: config.dateFormat }}"></ion-input>
+      </ion-item>
 ````
 
-4) Add the function to launch your datepicker from the associated typescript file (for example, `launch-calendar.ts`)
+### OPTION B: Embed calendar in page WITHOUT modal window:
+
+3B) Add the datepicker in your view (for example, `launch-calendar.html`)
+
+````html
+    <datepicker isModal="false" (click)="onDatepickerChange(selectedDatePicker.selectedDate)"></datepicker>
+````
+
+### OPTION A continued
+
+4A) Add the function to launch your datepicker from the associated typescript file (for example, `launch-calendar.ts`)
 
 ````ts
 import { NavController, NavParams, ModalController } from 'ionic-angular';
@@ -99,4 +110,16 @@ export class LaunchCalendar {
 
 (We're actually not using navParams in this example, but you may want it to pass the date config, or something else.)
 
+### Option B:
+
+4B) Same as above, except define the `onDatepickerChange()` function instead of `launchDatepicker()`
+
+````ts
+  onDatepickerChange(selectedDate: Date) {
+    //this.selectedDate = new Date(selectedDate);
+
+  }
+````
+
 5) Adjust styles and settings as needed.
+

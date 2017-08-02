@@ -1,11 +1,12 @@
-import { Component, Directive } from '@angular/core';
+import { Component, Directive, Input } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'datepicker.html',
-  selector: 'datepicker'
+  templateUrl: 'ionic2-datepicker.html',
+  selector: 'ionic2-datepicker'
 })
-export class Datepicker {
+export class IonicDatepicker {
+  @Input('isModal')isModal:boolean=true;
   weekdays;
   months;
   years;
@@ -42,7 +43,7 @@ export class Datepicker {
     this.config.mondayFirst = this.config.mondayFirst ? this.config.mondayFirst : false;
     this.config.daysList = this.config.daysList ? this.config.daysList : weekdays;
     this.config.monthsList = this.config.monthsList ? this.config.monthsList : months;
-    this.config.dateFormat = this.config.dateFormat ? this.config.dateFormat : 'dd MMMM yyyy';
+    this.config.dateFormat = this.config.dateFormat ? this.config.dateFormat : 'MMM d, yyyy';
     this.config.showTodayButton = this.config.showTodayButton ? this.config.showTodayButton : true;
     this.config.closeOnSelect = this.config.closeOnSelect ? this.config.closeOnSelect : false;
     this.today = this.resetHMSM(new Date());
@@ -52,19 +53,21 @@ export class Datepicker {
     this.loadDaysList(currentDate);
   }
 
-  prepareDisabledDates(disbaledDates) {
-    disbaledDates.forEach((disbaledDate, i) => {
-      disbaledDates[i] = this.resetHMSM(new Date(disbaledDate)).getTime();
-    });
-    return disbaledDates;
+  dateClicked(dateObj) {
+    this.selectedDate = new Date(dateObj.epoch);
+    console.log('modal? ', this.isModal);
+    console.log('selected date is ', this.selectedDate);
+
+    if(this.isModal===true){
+      this.dismiss();
+      return this.selectedDate;
+    } else {
+      return this.selectedDate;
+    }
   }
 
-  resetHMSM(currentDate) {
-    currentDate.setHours(0);
-    currentDate.setMinutes(0);
-    currentDate.setSeconds(0);
-    currentDate.setMilliseconds(0);
-    return currentDate;
+  getSelectedDate() {
+    return this.selectedDate;
   }
 
   getYearsList() {
@@ -84,7 +87,7 @@ export class Datepicker {
       let tempDate = new Date(ipDate.getFullYear(), ipDate.getMonth(), i);
       if (i === firstDay) this.prevDisabled = tempDate.getTime() < this.config.fromDate.getTime();
       if (i === lastDay) this.nextDisabled = tempDate.getTime() > this.config.toDate.getTime();
-      
+
       let isEnabled = ((this.config.fromDate && this.config.toDate) ? (this.config.fromDate.getTime() <= tempDate.getTime() && this.config.toDate.getTime() >= tempDate.getTime()) : ((this.config.fromDate && !this.config.toDate) ? (this.config.fromDate.getTime() <= tempDate.getTime()) : this.config.toDate.getTime() >= tempDate.getTime())) && (this.config.disabledDates.indexOf(tempDate.getTime()) < 0);
 
       this.daysList.push({
@@ -110,15 +113,12 @@ export class Datepicker {
     this.loadDaysList(new Date(this.tempDate));
   }
 
-  yearSelected(event, selectedYear) {
-    this.selectedYear = selectedYear;
-    this.tempDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
-    this.tempDate.setYear(this.selectedYear);
-    this.loadDaysList(new Date(this.tempDate));
-  }
-
-  dateClicked(dateObj) {
-    this.selectedDate = new Date(dateObj.epoch);
+  nextMonth(dateObj) {
+    let date = new Date(dateObj.epoch);
+    date.setDate(date.getDate() + 1);
+    this.selectedMonth = this.config.monthsList[date.getMonth()];
+    this.selectedYear = date.getFullYear();
+    this.loadDaysList(date);
   }
 
   prevMonth(dateObj) {
@@ -126,20 +126,26 @@ export class Datepicker {
     date.setDate(date.getDate() - dateObj.date);
     this.selectedMonth = this.config.monthsList[date.getMonth()];
     this.selectedYear = date.getFullYear();
-    this.loadDaysList(new Date(date));
+    this.loadDaysList(date);
   }
 
-  nextMonth(dateObj) {
-    let date = new Date(dateObj.epoch);
-    date.setDate(date.getDate() + 1);
-    this.selectedMonth = this.config.monthsList[date.getMonth()];
-    this.selectedYear = date.getFullYear();
-    this.loadDaysList(new Date(date));
+  prepareDisabledDates(disbaledDates) {
+    disbaledDates.forEach((disbaledDate, i) => {
+      disbaledDates[i] = this.resetHMSM(new Date(disbaledDate)).getTime();
+    });
+    return disbaledDates;
+  }
+
+  resetHMSM(currentDate) {
+    currentDate.setHours(0);
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0);
+    currentDate.setMilliseconds(0);
+    return currentDate;
   }
 
   setDate(ev: any) {
-    // console.log(this.selectedDate);
-    this.dismiss(ev);
+    this.dismiss();
   }
 
   setToday(ev: any) {
@@ -149,22 +155,20 @@ export class Datepicker {
     this.selectedDate = this.resetHMSM(new Date());
   }
 
-  dismiss(ev: any) {
-    if(ev.target.innerHTML == 'Close') {
-      this.viewCtrl.dismiss(this.today);
-    } else {
-      this.viewCtrl.dismiss(this.selectedDate);
-    }
+  yearSelected(event, selectedYear) {
+    this.selectedYear = selectedYear;
+    this.tempDate.setMonth(this.config.monthsList.indexOf(this.selectedMonth));
+    this.tempDate.setYear(this.selectedYear);
+    this.loadDaysList(new Date(this.tempDate));
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss(this.selectedDate);
   }
 
   ionViewWillLoad() {
     console.log('loading datepicker');
   }
 
-  // ionViewDidLoad() {
-  // }
-
-  // ionViewDidUnload() {
-  // }
 
 }

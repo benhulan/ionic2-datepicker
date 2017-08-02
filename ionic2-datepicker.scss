@@ -1,0 +1,149 @@
+datepicker {
+  > ion-content {
+    left: 0px !important;
+    width: 100% !important;
+    height: calc(100% - 57px);
+    margin-top: 57px;
+    @media(max-width: 600px) {
+      .toolbar-title-md {
+        display: block;
+        font-size: 1.5rem;
+      }
+    }
+    @media(min-width: 1200px) {
+      margin-top: 0px;
+    }
+  }
+
+  > ion-toolbar {
+    &.toolbar-md{
+      min-height: 1em;
+    }
+    .toolbar-background-md{
+      background: color($colors, favorite) !important;
+    }
+  }
+
+  > ion-list.no_modal_content.list-md {
+    min-width: 284px !important; // prevent 2-digit date numbers from breaking
+  }
+  .month-right {
+    text-align: right;
+  }
+
+
+  ion-row {
+    padding: 4px;
+    &.center.calendar-header{
+      padding: 0;
+      color: white;
+    }
+  }
+  ion-col {
+    text-align: center;
+    margin: auto;
+  }
+  .font_bold {
+    font-weight: bold;
+  } 
+  ion-select{
+    max-width: 100%;
+    width: 100%;
+  }
+  .select-md {
+    padding: 5px;
+  }
+  .date_cell{
+    padding: 5px;
+    @media(max-width: 365px) {
+      padding: 0px;
+    }
+  }
+  .disabled{
+    pointer-events: none;
+    color: #aaa;
+  }
+  .selected_date {
+    font-weight: bold;
+    background-color: color($colors, danger);
+    @include border-radius(16px);
+    @include text-background(color($colors,danger));
+    @media(max-width: 365px) {
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+  .selected_date.side_padding {
+    padding: 5px 9px;
+  }
+  .today{
+    background-color: white;
+    border: 1px solid color($colors, danger);
+    @include border-radius(16px);
+    @include text-background(white);
+  }
+  .today.first_week {
+    padding: 5px 9px !important;
+  }
+
+  .label-md{
+    display: block !important;
+  }
+
+  ion-row.center.calendar-header {
+    color: black;
+    padding-top: 1em;
+  }
+}
+
+ion-modal {
+  datepicker {
+    background-color: white;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    top: 56px;
+    max-height: 50px;
+    &.ion-page.show-page{
+      background-color: color($colors, favorite) !important;
+    }
+    ion-row.center.calendar-header {
+      padding-top: 0px;
+    }
+    > ion-toolbar.toolbar-md{
+      min-height: 0px !important;
+      padding: 0px;
+    }
+
+  // @media #{$tablet} {
+  //   .modal-wrapper {
+  //     background-color: white;
+  //     height: 100%;
+  //     left: 35%;
+  //     max-height: 500px;
+  //     max-width: 600px;
+  //     top: 57px; 
+  //     width: 100%;
+  //   }
+  // }
+
+
+    .modal_content {
+      > ion-row {
+        &.center.calendar-header{
+          color: white;
+          ion-col {
+            padding: 6px 0px;
+            ion-icon.ion-md-arrow-back:before, .ion-md-arrow-forward:before{
+              margin: 13px 6px;
+            }
+          }
+        }
+      }
+      .month-right {
+        text-align: center;
+      }
+    }
+  }
+}
+
