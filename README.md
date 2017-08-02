@@ -1,18 +1,18 @@
 Ionic2 Datepicker
 ======================
-#Under Development
+# Under Development
 
 This is an ionic-datepicker component, which can be used in any Ionic v2 framework's applications. No additional plugins required, in order to use this component. This is an open source project.
 
 
-##Prerequisites.
+## Prerequisites.
 
 * node, npm
 * ionic
 * gulp
 * type script
 
-##How to use:
+## How to use:
 
 1) In your project folder, please install this plugin using npm
 
